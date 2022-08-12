@@ -37,7 +37,6 @@ describe("when user join game", () => {
 
         // Assert
         driver.handleInGameEvent((inGameData) => {
-            console.log(inGameData);
             if (inGameData?.gameConfigs) {
                 expect(inGameData.gameConfigs.odds).toStrictEqual({
                     odd: 1.96,

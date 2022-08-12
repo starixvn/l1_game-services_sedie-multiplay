@@ -1,6 +1,6 @@
 const game = {
     id: 9,
-    name: "MiniSedie",
+    name: "MiniSeDie",
 };
 
 const gameConfig = {
