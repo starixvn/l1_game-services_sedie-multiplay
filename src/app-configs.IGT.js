@@ -1,19 +1,7 @@
-export default {
+import appConfigs from "./app-configs";
+
+export default Object.assign(appConfigs, {
     hostingPort: 5001,
-    apiSettings: {
-        enabledApi: true,
-        apiUrl: "http://api.lumigame.com",
-        authUrl: "http://auth.lumigame.com",
-        client: {
-            id: "game-server",
-            secret: "gameserver@20luminet&",
-        },
-        useAuthenticate: false,
-        requestTimeout: 10000,
-        placeBetTimeout: 4500,
-        hitJackpotTimeout: 200000,
-        enableApiLogs: true,
-    },
     authenticateSettings: {
         url: "http://l1_auth_api_local:5000",
         id: "game-services",
@@ -25,12 +13,6 @@ export default {
     userServiceSettings: {
         url: "http://l1_user_service_local:5000",
     },
-    socketOptions: {
-        pingInterval: 60 * 1000,
-        pingTimeout: 60 * 1000,
-        transports: ["websocket"],
-        allowUpgrades: false,
-    },
     enabledLogs: true,
     database: {
         url: "mongodb://mongo:27017",
@@ -41,18 +23,4 @@ export default {
             auto_reconnect: true,
         },
     },
-    sentry: {
-        sentryUrl: "https://8f52d1ed1dbc4500adddbfb6e20f66aa@sentryuat.sabagame.com/217",
-        logIdentifier: "mini-sedie-multiplay",
-        env: "LOCAL",
-    },
-    adminSecretKey: "asWDEerfOIdgsdqRTFabvmgh",
-    enableCorsWs: false,
-    corsUrls: [
-        "http://localhost:7456",
-        "http://10.5.10.14:7456",
-        "http://localhost:7000",
-        "http://games.lumigame.com",
-        "http://admin.lumigame.com",
-    ],
-};
+});

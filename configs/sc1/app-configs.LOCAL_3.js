@@ -10,7 +10,6 @@ export default {
         },
         useAuthenticate: true,
         requestTimeout: 10000,
-        hitJackpotTimeout: 200000,
         placeBetTimeout: 4000,
         enabledApiLogs: true,
     },
