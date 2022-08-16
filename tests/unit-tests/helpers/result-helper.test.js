@@ -3,7 +3,7 @@ import { generateResult, getSettlementResult, generateRawResultForHash } from ".
 describe("getSettlementResult tests", () => {
     describe("when results have ONE red", () => {
         it("should return odd and white3", () => {
-            // arrange
+            // Arrange
             const roundResult = { red1: true, red2: false, red3: false, red4: false };
             const expected = {
                 odd: true,
@@ -14,17 +14,17 @@ describe("getSettlementResult tests", () => {
                 white4: false,
             };
 
-            // act
-            var result = getSettlementResult(roundResult);
+            // Act
+            const result = getSettlementResult(roundResult);
 
-            // assert
+            // Assert
             expect(result).toStrictEqual(expected);
         });
     });
 
     describe("when results have TWO reds", () => {
         it("should return even", () => {
-            // arrange
+            // Arrange
             const roundResult = { red1: true, red2: true, red3: false, red4: false };
             const expected = {
                 odd: false,
@@ -35,17 +35,17 @@ describe("getSettlementResult tests", () => {
                 white4: false,
             };
 
-            // act
-            var result = getSettlementResult(roundResult);
+            // Act
+            const result = getSettlementResult(roundResult);
 
-            // assert
+            // Assert
             expect(result).toStrictEqual(expected);
         });
     });
 
     describe("when results have THREE reds", () => {
         it("should return odd and red3", () => {
-            // arrange
+            // Arrange
             const roundResult = { red1: true, red2: true, red3: true, red4: false };
             const expected = {
                 odd: true,
@@ -56,17 +56,17 @@ describe("getSettlementResult tests", () => {
                 white4: false,
             };
 
-            // act
-            var result = getSettlementResult(roundResult);
+            // Act
+            const result = getSettlementResult(roundResult);
 
-            // assert
+            // Assert
             expect(result).toStrictEqual(expected);
         });
     });
 
     describe("when results have FOUR reds", () => {
         it("should return even and red4", () => {
-            // arrange
+            // Arrange
             const roundResult = { red1: true, red2: true, red3: true, red4: true };
             const expected = {
                 odd: false,
@@ -77,17 +77,17 @@ describe("getSettlementResult tests", () => {
                 white4: false,
             };
 
-            // act
-            var result = getSettlementResult(roundResult);
+            // Act
+            const result = getSettlementResult(roundResult);
 
-            // assert
+            // Assert
             expect(result).toStrictEqual(expected);
         });
     });
 
     describe("when results have NO reds", () => {
         it("should return even and white4", () => {
-            // arrange
+            // Arrange
             const roundResult = { red1: false, red2: false, red3: false, red4: false };
             const expected = {
                 odd: false,
@@ -98,43 +98,39 @@ describe("getSettlementResult tests", () => {
                 white4: true,
             };
 
-            // act
-            var result = getSettlementResult(roundResult);
+            // Act
+            const result = getSettlementResult(roundResult);
 
-            // assert
+            // Assert
             expect(result).toStrictEqual(expected);
         });
     });
 });
 
 describe("generateResult tests", () => {
-    describe("when not passing mode", () => {
-        it("should return enough results", () => {
-            // act
-            var result = generateResult();
+    const testCases = [
+        { description: "not passing mode", mode: undefined },
+        { description: "passing a out of range mode", mode: 10 },
+        { description: "passing a valid mode", mode: 2 },
+    ];
 
-            // assert
-            expect(Object.keys(result).length).toBe(4);
-        });
-    });
+    testCases.forEach(({ description, mode }) => {
+        describe(`when ${description}`, () => {
+            it("should return correct result keys", () => {
+                // Act
+                const result = generateResult(mode);
 
-    describe("when passing a out of range mode", () => {
-        it("should return enough results", () => {
-            // act
-            var result = generateResult(10);
+                // Assert
+                expect(Object.keys(result)).toStrictEqual(["red1", "red2", "red3", "red4"]);
+            });
 
-            // assert
-            expect(Object.keys(result).length).toBe(4);
-        });
-    });
+            it("should return correct result value type", () => {
+                // Act
+                const result = generateResult(mode);
 
-    describe("when passing a valid mode", () => {
-        it("should return enough results", () => {
-            // act
-            var result = generateResult(2);
-
-            // assert
-            expect(Object.keys(result).length).toBe(4);
+                // Assert
+                expect(Object.values(result).some((value) => typeof value !== "boolean")).toBeFalsy();
+            });
         });
     });
 });
