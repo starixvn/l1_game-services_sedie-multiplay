@@ -1,41 +1,13 @@
-import { errorUser, GameClientDriver, internalServerErrorUser, normalUser } from "sc-game-service-integration-utils";
+import { errorUser, GameClientDriver, internalServerErrorUser } from "sc-game-service-integration-utils";
 
 import gameSettings from "../../src/game-settings";
 import { initUserSession } from "./helpers";
 import { socketOptions } from "./stubs/test-data";
 
-describe("when user place bet", () => {
+describe("USER failed to place a bet", () => {
     let driver;
-    describe("when place bet successful", () => {
-        beforeAll(async (done) => {
-            driver = await initDriverAndPlaceBet(normalUser);
-            done();
-        });
 
-        afterAll(() => {
-            driver.close();
-        });
-
-        it("should return current user ticket result", (done) => {
-            const expectedEndBetResponse = {
-                ownBets: { odd: 100 },
-                endBet: 100,
-                betChoice: "odd",
-                freeBet: false,
-                user: { maxBet: 2000, minBet: 1, red: 24250, scoins: 0 },
-            };
-
-            // Assert
-            driver.handleEndBetEvent((endBetData) => {
-                if (endBetData.endBet) {
-                    expect(endBetData).toStrictEqual(expectedEndBetResponse);
-                    done();
-                }
-            });
-        });
-    });
-
-    describe("when API has internal server error", () => {
+    describe("WHEN API has internal server error", () => {
         beforeAll(async (done) => {
             driver = await initDriverAndPlaceBet(internalServerErrorUser);
             done();
@@ -45,7 +17,7 @@ describe("when user place bet", () => {
             driver.close();
         });
 
-        it("should return api error to client", () => {
+        it("THEN return api error to client", () => {
             // Assert
             driver.handleEndBetEvent((endBetData) => {
                 console.log(endBetData);
@@ -57,7 +29,7 @@ describe("when user place bet", () => {
         });
     });
 
-    describe("When API response error", () => {
+    describe("WHEN API response error", () => {
         beforeAll(async (done) => {
             driver = await initDriverAndPlaceBet(errorUser);
             done();
@@ -67,7 +39,7 @@ describe("when user place bet", () => {
             driver.close();
         });
 
-        it("should return api error to client", () => {
+        it("THEN return api error to client", () => {
             // Assert
             driver.handleEndBetEvent((endBetData) => {
                 if (endBetData.endBet === -1) {
