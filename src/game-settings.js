@@ -18,7 +18,7 @@ const gameSettings = {
     generateResult,
     settle,
     generateRawResultForHash,
-    numberOfRoundHistory: 102,
+    numberOfRoundHistory: 100,
 };
 
 export default [
