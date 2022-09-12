@@ -4,8 +4,17 @@ import { getBetModel, getResultModel, getRoundModel } from "./models";
 const choicesMapper = { even: 1, odd: 2, red3: 3, red4: 4, white3: 5, white4: 6 };
 const choices = ["even", "odd", "red3", "red4", "white3", "white4"];
 const hedgeBetGroups = [["even", "odd"]];
+const gameNamePrefix = "MiniSeDie";
 
-const gameSettings = {
+const buildGameSettings = (gameId, gameName, overrideSettings = {}) => ({
+    id: gameId,
+    name: gameName,
+    configName: gameName.toLowerCase(),
+    repositories: {
+        roundsRepository: getRoundModel(`${gameName.toLowerCase()}_round`),
+        betsRepository: getBetModel(`${gameName.toLowerCase()}_bet`),
+        resultsRepository: getResultModel(`${gameName.toLowerCase()}_result`),
+    },
     durations: {
         wholeRound: 38,
         placingBets: 30,
@@ -19,51 +28,18 @@ const gameSettings = {
     settle,
     generateRawResultForHash,
     numberOfRoundHistory: 100,
-};
+    ...overrideSettings,
+});
 
 export default [
-    {
-        ...gameSettings,
-        id: 9,
-        name: "MiniSeDie",
-        configName: "minisedie",
+    buildGameSettings(9, gameNamePrefix, {
         repositories: {
-            roundsRepository: getRoundModel("minisedie_phien"),
-            betsRepository: getBetModel("minisedie_cuoc"),
-            resultsRepository: getResultModel("minisedie_results"),
+            roundsRepository: getRoundModel(`${gameNamePrefix.toLowerCase()}_phien`),
+            betsRepository: getBetModel(`${gameNamePrefix.toLowerCase()}_cuoc`),
+            resultsRepository: getResultModel(`${gameNamePrefix.toLowerCase()}_results`),
         },
-    },
-    {
-        ...gameSettings,
-        id: 56,
-        name: "MiniSeDie2",
-        configName: "minisedie2",
-        repositories: {
-            roundsRepository: getRoundModel("minisedie2_round"),
-            betsRepository: getBetModel("minisedie2_bet"),
-            resultsRepository: getResultModel("minisedie2_result"),
-        },
-    },
-    {
-        ...gameSettings,
-        id: 57,
-        name: "MiniSeDie3",
-        configName: "minisedie3",
-        repositories: {
-            roundsRepository: getRoundModel("minisedie3_round"),
-            betsRepository: getBetModel("minisedie3_bet"),
-            resultsRepository: getResultModel("minisedie3_result"),
-        },
-    },
-    {
-        ...gameSettings,
-        id: 58,
-        name: "MiniSeDie4",
-        configName: "minisedie4",
-        repositories: {
-            roundsRepository: getRoundModel("minisedie4_round"),
-            betsRepository: getBetModel("minisedie4_bet"),
-            resultsRepository: getResultModel("minisedie4_result"),
-        },
-    },
+    }),
+    buildGameSettings(56, `${gameNamePrefix}2`),
+    buildGameSettings(57, `${gameNamePrefix}3`),
+    buildGameSettings(58, `${gameNamePrefix}4`),
 ];
