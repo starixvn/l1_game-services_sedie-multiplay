@@ -1,6 +1,26 @@
 import { generateResult, getSettlementResult, generateRawResultForHash } from "../../../src/helpers/result-helper";
 
-describe("getSettlementResult tests", () => {
+const chanceMock = { pickoneIndex: 0 };
+
+jest.mock("chance", () => {
+    return function () {
+        const orig = {
+            ...jest.requireActual("chance"),
+        };
+
+        return {
+            natural: (opt) => {
+                return new orig.Chance().natural(opt);
+            },
+            integer: (opt) => {
+                return new orig.Chance().integer(opt);
+            },
+            pickone: (arr) => arr[chanceMock.pickoneIndex],
+        };
+    };
+});
+
+describe("getSettlementResult", () => {
     describe("when results have ONE red", () => {
         it("should return odd and white3", () => {
             // Arrange
@@ -107,11 +127,10 @@ describe("getSettlementResult tests", () => {
     });
 });
 
-describe("generateResult tests", () => {
+describe("generateResult", () => {
     const testCases = [
         { description: "not passing mode", mode: undefined },
         { description: "passing a out of range mode", mode: 10 },
-        { description: "passing a valid mode", mode: 2 },
     ];
 
     testCases.forEach(({ description, mode }) => {
@@ -130,6 +149,45 @@ describe("generateResult tests", () => {
 
                 // Assert
                 expect(Object.values(result).some((value) => typeof value !== "boolean")).toBeFalsy();
+            });
+        });
+    });
+
+    describe("when passing valid mode", () => {
+        const validTestCases = [
+            { randomMode: 1, pickoneIndex: 0 },
+            { randomMode: 1, pickoneIndex: 1 },
+            { randomMode: 1, pickoneIndex: 2 },
+            { randomMode: 1, pickoneIndex: 3 },
+            { randomMode: 2, pickoneIndex: 0 },
+            { randomMode: 2, pickoneIndex: 1 },
+            { randomMode: 2, pickoneIndex: 2 },
+            { randomMode: 2, pickoneIndex: 3 },
+            { randomMode: 3, pickoneIndex: 0 },
+            { randomMode: 3, pickoneIndex: 1 },
+            { randomMode: 3, pickoneIndex: 2 },
+            { randomMode: 3, pickoneIndex: 3 },
+        ];
+
+        validTestCases.forEach(({ randomMode, pickoneIndex }) => {
+            chanceMock.pickoneIndex = pickoneIndex;
+
+            describe(`when randomMode is ${randomMode} and randomIndex is ${pickoneIndex}`, () => {
+                it("should return correct result keys", () => {
+                    // Act
+                    const result = generateResult(randomMode);
+
+                    // Assert
+                    expect(Object.keys(result)).toStrictEqual(["red1", "red2", "red3", "red4"]);
+                });
+
+                it("should return correct result value type", () => {
+                    // Act
+                    const result = generateResult(randomMode);
+
+                    // Assert
+                    expect(Object.values(result).some((value) => typeof value !== "boolean")).toBeFalsy();
+                });
             });
         });
     });

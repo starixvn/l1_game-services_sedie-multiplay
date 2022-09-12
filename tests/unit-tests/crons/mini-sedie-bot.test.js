@@ -31,7 +31,7 @@ const publisher = new BaseEventPublisher(definition.name, gameData);
 
 const chance = new Chance();
 
-describe("Bot tests", () => {
+describe("Bot", () => {
     describe("when initialize", () => {
         it("all bet amount of choices should be zero", () => {
             // act
@@ -104,7 +104,7 @@ describe("Bot tests", () => {
         });
     });
 
-    describe("isSmallTicket test", () => {
+    describe("isSmallTicket", () => {
         describe("when amount less than minBet * smallTicketValueRatio", () => {
             it("should return true ", () => {
                 // arrange
@@ -137,7 +137,7 @@ describe("Bot tests", () => {
         });
     });
 
-    describe("convertAmountToChip test", () => {
+    describe("convertAmountToChip", () => {
         it("should return correct chip", () => {
             // arrange
             const bot = new Bot(definition, gameData, publisher, userInfosRepository);
@@ -176,7 +176,7 @@ describe("Bot tests", () => {
         });
     });
 
-    describe("getTotalBetAmount test", () => {
+    describe("getTotalBetAmount", () => {
         it("should return correct amount", () => {
             // arrange
             const bot = new Bot(definition, gameData, publisher, userInfosRepository);
@@ -193,7 +193,7 @@ describe("Bot tests", () => {
         });
     });
 
-    describe("getMaxBet test", () => {
+    describe("getMaxBet", () => {
         describe("when not reach smallTicketRatio", () => {
             it("should return the max value of small ticket", () => {
                 // arrange
@@ -263,7 +263,7 @@ describe("Bot tests", () => {
         });
     });
 
-    describe("getBetChoice test", () => {
+    describe("getBetChoice", () => {
         describe("when main choices have less than 90% bet amount", () => {
             it("should return main choices", () => {
                 // arrange
@@ -278,7 +278,7 @@ describe("Bot tests", () => {
         });
     });
 
-    describe("placeBet test", () => {
+    describe("placeBet", () => {
         it("should not place bet in locking time", async () => {
             // arrange
             gameData.remainingTime = chance.integer({ min: 0, max: definition.durations.lockingBet });

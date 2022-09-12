@@ -4,7 +4,7 @@ import { Core } from "sc-game-base";
 
 import PlaceBetConsumer from "../../../src/consumers/place-bet-consumer";
 
-describe("composeBettingTimeValidationCriteria tests", () => {
+describe("composeBettingTimeValidationCriteria", () => {
     const playerName = "nhanvat01";
     const player = {
         UID: "123",
@@ -55,7 +55,7 @@ describe("composeBettingTimeValidationCriteria tests", () => {
             const placeBetConsumer = new PlaceBetConsumer(gameDefinition, gameData);
 
             // act
-            var criterions = placeBetConsumer.composeBettingTimeValidationCriteria();
+            const criterions = placeBetConsumer.composeBettingTimeValidationCriteria();
 
             // assert
             expect(criterions).not.toBeEmpty();
@@ -77,7 +77,7 @@ describe("composeBettingTimeValidationCriteria tests", () => {
             const placeBetConsumer = new PlaceBetConsumer(gameDefinition, gameData);
 
             // act
-            var criterions = placeBetConsumer.composeBettingTimeValidationCriteria();
+            const criterions = placeBetConsumer.composeBettingTimeValidationCriteria();
 
             // assert
             expect(criterions).not.toBeEmpty();
@@ -99,7 +99,7 @@ describe("composeBettingTimeValidationCriteria tests", () => {
             const placeBetConsumer = new PlaceBetConsumer(gameDefinition, gameData);
 
             // act
-            var criterions = placeBetConsumer.composeBettingTimeValidationCriteria();
+            const criterions = placeBetConsumer.composeBettingTimeValidationCriteria();
 
             // assert
             expect(criterions).not.toBeEmpty();
@@ -121,7 +121,7 @@ describe("composeBettingTimeValidationCriteria tests", () => {
             const placeBetConsumer = new PlaceBetConsumer(gameDefinition, gameData);
 
             // act
-            var criterions = placeBetConsumer.composeBettingTimeValidationCriteria();
+            const criterions = placeBetConsumer.composeBettingTimeValidationCriteria();
 
             // assert
             expect(criterions).not.toBeEmpty();
@@ -143,7 +143,7 @@ describe("composeBettingTimeValidationCriteria tests", () => {
             const placeBetConsumer = new PlaceBetConsumer(gameDefinition, gameData);
 
             // act
-            var criterions = placeBetConsumer.composeBettingTimeValidationCriteria();
+            const criterions = placeBetConsumer.composeBettingTimeValidationCriteria();
 
             // assert
             expect(criterions.filter((x) => x.failure)).toBeEmpty();
