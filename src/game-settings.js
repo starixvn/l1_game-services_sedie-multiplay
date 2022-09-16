@@ -16,7 +16,7 @@ const buildGameSettings = (gameId, gameName, overrideSettings = {}) => ({
         resultsRepository: getResultModel(`${gameName.toLowerCase()}_result`),
     },
     durations: {
-        wholeRound: 38,
+        wholeRound: 39,
         placingBets: 30,
         lockingBet: 5,
         shakeThePlateDuration: 2,
