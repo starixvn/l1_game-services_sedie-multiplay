@@ -58,4 +58,5 @@ export default {
         "https://admin.lumigame.com",
     ],
     enableMsgpackParser: false,
+    enabledBoostedOdds: true,
 };
