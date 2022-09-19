@@ -53,6 +53,10 @@ export default {
         "https://l1uat.sgamesuat.com",
         "http://l1uatadm.sgamesuat.com",
         "https://l1uatadm.sgamesuat.com",
+        "http://l1uatm.sgamesuat.com",
+        "https://l1uatm.sgamesuat.com",
+        "http://l1miniuat.sgamesuat.com",
+        "https://l1miniuat.sgamesuat.com",
     ],
     enableMsgpackParser: true,
     metrics: {

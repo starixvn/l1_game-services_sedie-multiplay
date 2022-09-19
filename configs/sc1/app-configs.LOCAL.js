@@ -50,10 +50,16 @@ export default {
     enableCorsWs: true,
     corsUrls: [
         "http://localhost:7456",
-        "http://10.5.10.14:7456",
         "http://localhost:7000",
+        "http://localhost:3000",
+        "http://games.lumigame.com",
         "https://games.lumigame.com",
+        "http://admin.lumigame.com",
         "https://admin.lumigame.com",
+        "http://l1-m.lumigame.com",
+        "https://l1-m.lumigame.com",
+        "http://l1-mini.lumigame.com",
+        "https://l1-mini.lumigame.com",
     ],
     metrics: {
         enable: true,
