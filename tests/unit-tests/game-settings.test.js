@@ -5,12 +5,12 @@ describe("gameSettings", () => {
         describe("mini sedie & mini sedie 2", () => {
             const settings = [gameSettings[0], gameSettings[1]];
 
-            it("wholeRound should be 39", () => {
+            it("wholeRound should be 38", () => {
                 // Arrange
                 const wholeRounds = settings.map((setting) => setting.durations.wholeRound);
 
                 // Assert
-                expect(wholeRounds.some((value) => value !== 39)).toBeFalsy();
+                expect(wholeRounds.some((value) => value !== 38)).toBeFalsy();
             });
 
             it("placingBets should be 30", () => {
@@ -25,12 +25,12 @@ describe("gameSettings", () => {
         describe("mini sedie 3 & mini sedie 4", () => {
             const settings = [gameSettings[2], gameSettings[3]];
 
-            it("wholeRound should be 44", () => {
+            it("wholeRound should be 43", () => {
                 // Arrange
                 const wholeRounds = settings.map((setting) => setting.durations.wholeRound);
 
                 // Assert
-                expect(wholeRounds.some((value) => value !== 44)).toBeFalsy();
+                expect(wholeRounds.some((value) => value !== 43)).toBeFalsy();
             });
 
             it("placingBets should be 35", () => {

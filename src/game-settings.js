@@ -7,14 +7,14 @@ const hedgeBetGroups = [["even", "odd"]];
 const gameNamePrefix = "MiniSeDie";
 
 const normalGameDurations = {
-    wholeRound: 39,
+    wholeRound: 38,
     placingBets: 30,
     lockingBet: 5,
     shakeThePlateDuration: 2,
 };
 
 const extendGameDurations = {
-    wholeRound: 44,
+    wholeRound: 43,
     placingBets: 35,
     lockingBet: 5,
     shakeThePlateDuration: 2,
