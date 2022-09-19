@@ -63,4 +63,5 @@ export default {
     orsUrls: ["https://sc1-games.sportsfun.app", "https://sc1-adm.sportsfun.app"],
     freeSpinLiveSeconds: 86400, // 1 day
     bonusLiveSeconds: 127,
+    enabledBoostedOdds: true,
 };
