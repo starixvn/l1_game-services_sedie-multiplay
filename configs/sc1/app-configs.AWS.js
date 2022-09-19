@@ -64,4 +64,12 @@ export default {
     freeSpinLiveSeconds: 86400, // 1 day
     bonusLiveSeconds: 127,
     enabledBoostedOdds: true,
+    chatBotSettings: {
+        url: "https://bot.nexdev.net/skynex/api/messages/",
+        token: "0A40aOc7CtpzjbBSJu8KNWQRoXyjRvf9",
+        requestTimeout: 5000,
+        conversationIds: {
+            boostedOdds: -1001516573929,
+        },
+    },
 };
