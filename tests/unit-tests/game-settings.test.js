@@ -2,20 +2,44 @@ import gameSettings from "../../src/game-settings";
 
 describe("gameSettings", () => {
     describe("durations", () => {
-        it("wholeRound should be 38", () => {
-            // Arrange
-            const wholeRounds = gameSettings.map((setting) => setting.durations.wholeRound);
+        describe("mini sedie & mini sedie 2", () => {
+            const settings = [gameSettings[0], gameSettings[1]];
 
-            // Assert
-            expect(wholeRounds.some((value) => value !== 38)).toBeFalsy();
+            it("wholeRound should be 39", () => {
+                // Arrange
+                const wholeRounds = settings.map((setting) => setting.durations.wholeRound);
+
+                // Assert
+                expect(wholeRounds.some((value) => value !== 39)).toBeFalsy();
+            });
+
+            it("placingBets should be 30", () => {
+                // Arrange
+                const placingBets = settings.map((setting) => setting.durations.placingBets);
+
+                // Assert
+                expect(placingBets.some((value) => value !== 30)).toBeFalsy();
+            });
         });
 
-        it("placingBets should be 30", () => {
-            // Arrange
-            const placingBets = gameSettings.map((setting) => setting.durations.placingBets);
+        describe("mini sedie 3 & mini sedie 4", () => {
+            const settings = [gameSettings[2], gameSettings[3]];
 
-            // Assert
-            expect(placingBets.some((value) => value !== 30)).toBeFalsy();
+            it("wholeRound should be 44", () => {
+                // Arrange
+                const wholeRounds = settings.map((setting) => setting.durations.wholeRound);
+
+                // Assert
+                expect(wholeRounds.some((value) => value !== 44)).toBeFalsy();
+            });
+
+            it("placingBets should be 35", () => {
+                // Arrange
+                const placingBets = settings.map((setting) => setting.durations.placingBets);
+
+                // Assert
+                expect(placingBets.some((value) => value !== 35)).toBeFalsy();
+            });
         });
 
         it("lockingBet should be 5", () => {

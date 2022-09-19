@@ -6,6 +6,20 @@ const choices = ["even", "odd", "red3", "red4", "white3", "white4"];
 const hedgeBetGroups = [["even", "odd"]];
 const gameNamePrefix = "MiniSeDie";
 
+const normalGameDurations = {
+    wholeRound: 39,
+    placingBets: 30,
+    lockingBet: 5,
+    shakeThePlateDuration: 2,
+};
+
+const extendGameDurations = {
+    wholeRound: 44,
+    placingBets: 35,
+    lockingBet: 5,
+    shakeThePlateDuration: 2,
+};
+
 const buildGameSettings = (gameId, gameName, overrideSettings = {}) => ({
     id: gameId,
     name: gameName,
@@ -14,12 +28,6 @@ const buildGameSettings = (gameId, gameName, overrideSettings = {}) => ({
         roundsRepository: getRoundModel(`${gameName.toLowerCase()}_round`),
         betsRepository: getBetModel(`${gameName.toLowerCase()}_bet`),
         resultsRepository: getResultModel(`${gameName.toLowerCase()}_result`),
-    },
-    durations: {
-        wholeRound: 39,
-        placingBets: 30,
-        lockingBet: 5,
-        shakeThePlateDuration: 2,
     },
     choices,
     hedgeBetGroups,
@@ -38,8 +46,15 @@ export default [
             betsRepository: getBetModel(`${gameNamePrefix.toLowerCase()}_cuoc`),
             resultsRepository: getResultModel(`${gameNamePrefix.toLowerCase()}_results`),
         },
+        durations: normalGameDurations,
     }),
-    buildGameSettings(56, `${gameNamePrefix}2`),
-    buildGameSettings(57, `${gameNamePrefix}3`),
-    buildGameSettings(58, `${gameNamePrefix}4`),
+    buildGameSettings(56, `${gameNamePrefix}2`, {
+        durations: normalGameDurations,
+    }),
+    buildGameSettings(57, `${gameNamePrefix}3`, {
+        durations: extendGameDurations,
+    }),
+    buildGameSettings(58, `${gameNamePrefix}4`, {
+        durations: extendGameDurations,
+    }),
 ];
