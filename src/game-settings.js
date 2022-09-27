@@ -1,10 +1,12 @@
 import { generateResult, getSettlementResult as settle, generateRawResultForHash } from "./helpers/result-helper";
 import { getBetModel, getResultModel, getRoundModel } from "./models";
+import { allGamesHistoriesModel } from "sc-multiple-games-base";
 
 const choicesMapper = { even: 1, odd: 2, red3: 3, red4: 4, white3: 5, white4: 6 };
 const choices = ["even", "odd", "red3", "red4", "white3", "white4"];
 const hedgeBetGroups = [["even", "odd"]];
 const gameNamePrefix = "MiniSeDie";
+const allGamesBetsRepository = allGamesHistoriesModel("megakeno_histories");
 
 const normalGameDurations = {
     wholeRound: 38,
@@ -28,6 +30,7 @@ const buildGameSettings = (gameId, gameName, overrideSettings = {}) => ({
         roundsRepository: getRoundModel(`${gameName.toLowerCase()}_round`),
         betsRepository: getBetModel(`${gameName.toLowerCase()}_bet`),
         resultsRepository: getResultModel(`${gameName.toLowerCase()}_result`),
+        allGamesBetsRepository,
     },
     choices,
     hedgeBetGroups,
@@ -45,6 +48,7 @@ export default [
             roundsRepository: getRoundModel(`${gameNamePrefix.toLowerCase()}_phien`),
             betsRepository: getBetModel(`${gameNamePrefix.toLowerCase()}_cuoc`),
             resultsRepository: getResultModel(`${gameNamePrefix.toLowerCase()}_results`),
+            allGamesBetsRepository,
         },
         durations: normalGameDurations,
     }),
