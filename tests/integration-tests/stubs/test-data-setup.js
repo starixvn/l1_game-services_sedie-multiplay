@@ -28,6 +28,247 @@ const clearAllData = async () => {
     }
 };
 
+const createViews = async () => {
+    await mongoose.connection.db.createCollection("minisedie_histories", {
+        viewOn: "users",
+        pipeline: [
+            {
+                $project: {
+                    _id: 0,
+                    playerId: "$local.memberId",
+                },
+            },
+            {
+                $lookup: {
+                    from: "minisedie_cuocs",
+                    let: {
+                        playerId: "$playerId",
+                    },
+                    pipeline: [
+                        {
+                            $match: {
+                                $expr: {
+                                    $and: [
+                                        {
+                                            $eq: ["$paid", true],
+                                        },
+                                        {
+                                            $eq: ["$playerId", "$$playerId"],
+                                        },
+                                    ],
+                                },
+                            },
+                        },
+                        {
+                            $lookup: {
+                                from: "minisedie_phiens",
+                                localField: "roundId",
+                                foreignField: "id",
+                                as: "round",
+                            },
+                        },
+                        {
+                            $unwind: "$round",
+                        },
+                        {
+                            $set: {
+                                gameId: {
+                                    $literal: 9,
+                                },
+                            },
+                        },
+                    ],
+                    as: "minisedie",
+                },
+            },
+            {
+                $lookup: {
+                    from: "minisedie2_bets",
+                    let: {
+                        playerId: "$playerId",
+                    },
+                    pipeline: [
+                        {
+                            $match: {
+                                $expr: {
+                                    $and: [
+                                        {
+                                            $eq: ["$paid", true],
+                                        },
+                                        {
+                                            $eq: ["$playerId", "$$playerId"],
+                                        },
+                                    ],
+                                },
+                            },
+                        },
+                        {
+                            $lookup: {
+                                from: "minisedie_rounds",
+                                localField: "roundId",
+                                foreignField: "id",
+                                as: "round",
+                            },
+                        },
+                        {
+                            $unwind: "$round",
+                        },
+                        {
+                            $set: {
+                                gameId: {
+                                    $literal: 56,
+                                },
+                            },
+                        },
+                    ],
+                    as: "minisedie2",
+                },
+            },
+            {
+                $lookup: {
+                    from: "minisedie3_bets",
+                    let: {
+                        playerId: "$playerId",
+                    },
+                    pipeline: [
+                        {
+                            $match: {
+                                $expr: {
+                                    $and: [
+                                        {
+                                            $eq: ["$paid", true],
+                                        },
+                                        {
+                                            $eq: ["$playerId", "$$playerId"],
+                                        },
+                                    ],
+                                },
+                            },
+                        },
+                        {
+                            $lookup: {
+                                from: "minisedie_rounds",
+                                localField: "roundId",
+                                foreignField: "id",
+                                as: "round",
+                            },
+                        },
+                        {
+                            $unwind: "$round",
+                        },
+                        {
+                            $set: {
+                                gameId: {
+                                    $literal: 57,
+                                },
+                            },
+                        },
+                    ],
+                    as: "minisedie3",
+                },
+            },
+            {
+                $lookup: {
+                    from: "minisedie3_bets",
+                    let: {
+                        playerId: "$playerId",
+                    },
+                    pipeline: [
+                        {
+                            $match: {
+                                $expr: {
+                                    $and: [
+                                        {
+                                            $eq: ["$paid", true],
+                                        },
+                                        {
+                                            $eq: ["$playerId", "$$playerId"],
+                                        },
+                                    ],
+                                },
+                            },
+                        },
+                        {
+                            $lookup: {
+                                from: "minisedie_rounds",
+                                localField: "roundId",
+                                foreignField: "id",
+                                as: "round",
+                            },
+                        },
+                        {
+                            $unwind: "$round",
+                        },
+                        {
+                            $set: {
+                                gameId: {
+                                    $literal: 57,
+                                },
+                            },
+                        },
+                    ],
+                    as: "minisedie3",
+                },
+            },
+            {
+                $lookup: {
+                    from: "minisedie4_bets",
+                    let: {
+                        playerId: "$playerId",
+                    },
+                    pipeline: [
+                        {
+                            $match: {
+                                $expr: {
+                                    $and: [
+                                        {
+                                            $eq: ["$paid", true],
+                                        },
+                                        {
+                                            $eq: ["$playerId", "$$playerId"],
+                                        },
+                                    ],
+                                },
+                            },
+                        },
+                        {
+                            $lookup: {
+                                from: "minisedie4_rounds",
+                                localField: "roundId",
+                                foreignField: "id",
+                                as: "round",
+                            },
+                        },
+                        {
+                            $unwind: "$round",
+                        },
+                        {
+                            $set: {
+                                gameId: {
+                                    $literal: 58,
+                                },
+                            },
+                        },
+                    ],
+                    as: "minisedie4",
+                },
+            },
+            {
+                $set: {
+                    minisedie: "$$REMOVE",
+                    minisedie2: "$$REMOVE",
+                    minisedie3: "$$REMOVE",
+                    minisedie4: "$$REMOVE",
+                    bet: {
+                        $concatArrays: ["$minisedie", "$minisedie2", "$minisedie3", "$minisedie4"],
+                    },
+                },
+            },
+            { $unwind: "$bet" },
+        ],
+    });
+};
+
 const createTestData = async () => {
     await connectDatabase();
     await createExchangeRate();
@@ -41,6 +282,7 @@ const createTestData = async () => {
     await createDummyUsers(currency);
     await createRounds();
     await createUserBetData();
+    await createViews();
 
     console.log("Create game config & dummy user for testing successfully!");
 

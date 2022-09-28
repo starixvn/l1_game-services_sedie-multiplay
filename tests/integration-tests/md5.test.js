@@ -1,4 +1,4 @@
-import { GameClientDriver, normalUser, eventTypes } from "sc-game-service-integration-utils";
+import { GameClientDriver, normalUser } from "sc-game-service-integration-utils";
 import { socketOptions } from "./stubs/test-data";
 import { initUserSession } from "./helpers";
 import crypto from "crypto";

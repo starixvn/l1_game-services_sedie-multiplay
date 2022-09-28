@@ -24,6 +24,7 @@ export default class ContainerRegistry extends MultipleGamesContainerRegistry {
             betsRepository: asValue(repositories.betsRepository),
             resultsRepository: asValue(repositories.resultsRepository),
             betLogsRepository: asValue(repositories.betLogsRepository),
+            allGamesBetsRepository: asValue(repositories.allGamesBetsRepository),
         });
     }
 

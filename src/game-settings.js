@@ -6,7 +6,7 @@ const choicesMapper = { even: 1, odd: 2, red3: 3, red4: 4, white3: 5, white4: 6 
 const choices = ["even", "odd", "red3", "red4", "white3", "white4"];
 const hedgeBetGroups = [["even", "odd"]];
 const gameNamePrefix = "MiniSeDie";
-const allGamesBetsRepository = allGamesHistoriesModel("megakeno_histories");
+const allGamesBetsRepository = allGamesHistoriesModel("minisedie_histories");
 
 const normalGameDurations = {
     wholeRound: 38,

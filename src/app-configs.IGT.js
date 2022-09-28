@@ -15,7 +15,7 @@ export default Object.assign(appConfigs, {
     },
     enabledLogs: true,
     database: {
-        url: "mongodb://mongo:27017",
+        url: "mongodb://127.0.0.1:27017",
         options: {
             dbName: "minigame_igt",
             useNewUrlParser: true,
