@@ -72,7 +72,7 @@ describe("composeBettingTimeValidationCriteria", () => {
             gameData.gameConfigs.enabled = true;
             gameData.remainingTime = chance.integer({
                 min: gameDefinition.durations.placingBets,
-                max: gameDefinition.durations.placingBets + gameDefinition.durations.shakeThePlateDuration,
+                max: gameDefinition.durations.placingBets + gameDefinition.durations.shakeThePlateDuration - 1,
             });
             const placeBetConsumer = new PlaceBetConsumer(gameDefinition, gameData);
 
