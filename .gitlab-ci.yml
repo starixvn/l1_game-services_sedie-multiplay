@@ -3,8 +3,11 @@ variables:
 
 include:
     - project: "ci/repos-ci/pentagon_l1_sedie_multiplay_service"
-      ref: master
-      file: "gitlab-ci.yml"
+     ref: master
+     file: "gitlab-ci.yml"
+    - project: "ci/repos-ci/pentagon_l2_sedie_multiplay_service"
+     ref: master
+     file: "gitlab-ci-mixing.yml"
 
 integration-tests:
     stage: test
