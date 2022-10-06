@@ -24,6 +24,28 @@ process.on("SIGINT", () => {
     });
 });
 
+process.on("SIGHUP", () => {
+    console.log("Intercepted SIGHUP on parent");
+
+    delay(50000).then(() => {
+        // Kill/handle your child processes here
+        console.log("EXIT SIGHUP on parent");
+
+        process.exit(0); // Then exit the main process
+    });
+});
+
+process.on("SIGTERM", () => {
+    console.log("Intercepted SIGTERM on parent");
+
+    delay(50000).then(() => {
+        // Kill/handle your child processes here
+        console.log("EXIT SIGTERM on parent");
+
+        process.exit(0); // Then exit the main process
+    });
+});
+
 function delay(ms) {
     return new Promise((resolve) => setTimeout(resolve, ms));
 }
