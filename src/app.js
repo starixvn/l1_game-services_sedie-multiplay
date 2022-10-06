@@ -12,3 +12,13 @@ const run = async () => {
 };
 
 run();
+
+process.on("SIGINT", () => {
+    console.log("Intercepted SIGINT on parent");
+
+    delay(5000).then(() => {
+        // Kill/handle your child processes here
+
+        process.exit(0); // Then exit the main process
+    });
+});
