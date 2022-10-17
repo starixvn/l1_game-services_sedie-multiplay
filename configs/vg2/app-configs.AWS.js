@@ -52,4 +52,13 @@ export default {
     corsUrls: ["https://sc1-games.sportsfun.app", "https://sc1-adm.sportsfun.app"],
     freeSpinLiveSeconds: 86400, // 1 day
     bonusLiveSeconds: 123,
+    chatBotSettings: {
+        url: "https://bot.nexdev.net/skynex/api/messages/",
+        token: "0A40aOc7CtpzjbBSJu8KNWQRoXyjRvf9",
+        requestTimeout: 5000,
+        conversationIds: {
+            boostedOdds: -1001744731510,
+        },
+    },
+    enabledBoostedOdds: true,
 };
