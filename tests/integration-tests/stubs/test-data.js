@@ -74,11 +74,13 @@ const rounds = [
         id: 1,
         result: { red1: true, red2: false, red3: false, red4: false },
         settlementResult: { odd: true, even: false, red3: false, red4: false, white3: true, white4: false },
+        exchangeRateId: 2681,
     },
     {
         id: 2,
         result: { red1: false, red2: true, red3: true, red4: false },
         settlementResult: { odd: false, even: true, red3: false, red4: false, white3: false, white4: false },
+        exchangeRateId: 2681,
     },
 ];
 
