@@ -1,6 +1,6 @@
 import { generateResult, getSettlementResult as settle, generateRawResultForHash } from "./helpers/result-helper";
-import { getBetModel, getResultModel, getRoundModel } from "./models";
-import { allGamesHistoriesModel } from "sc-multiple-games-base";
+import { getBetModel, getResultModel, getRoundModel, allGamesHistoriesModel } from "./models";
+
 
 const choicesMapper = { even: 1, odd: 2, red3: 3, red4: 4, white3: 5, white4: 6 };
 const choices = ["even", "odd", "red3", "red4", "white3", "white4"];
