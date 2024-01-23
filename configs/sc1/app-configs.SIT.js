@@ -22,7 +22,7 @@ export default {
     },
     enabledLogs: true,
     database: {
-        url: "mongodb://lmn_backend:LmnBackend%40517@10.99.99.187:27301/?replicaSet=SabaSIT&appName=SeDieMultiplay",
+        url: "mongodb://lmn_backend:LmnBackend%40517@10.99.99.53:39110,10.99.99.54:39110,10.99.99.188:39110,10.99.99.187:39110/?replicaSet=SabaSIT&appName=SeDieMultiplay",
         options: {
             dbName: "minigame",
             useNewUrlParser: true,
