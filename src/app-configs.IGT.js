@@ -3,7 +3,7 @@ import appConfigs from "./app-configs";
 export default Object.assign(appConfigs, {
     hostingPort: 5001,
     authenticateSettings: {
-        url: "http://l1_auth_api_local:5000",
+        url: "http://l1-auth-api-local-service:5000",
         id: "game-services",
         secret: "gameservices@20luminet&",
         requestTimeout: 10000,
@@ -11,7 +11,7 @@ export default Object.assign(appConfigs, {
         audiences: ["api", "admin-api"],
     },
     userServiceSettings: {
-        url: "http://l1_user_service_local:5000",
+        url: "http://l1-user-service-local-service:5000",
     },
     enabledLogs: true,
     database: {
