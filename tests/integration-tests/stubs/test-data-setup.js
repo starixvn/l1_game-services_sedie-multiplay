@@ -36,6 +36,7 @@ const createViews = async () => {
                 $project: {
                     _id: 0,
                     playerId: { $toString: "$local.memberId" },
+                    operatorId: "$local.operatorId"
                 },
             },
             {
@@ -279,6 +280,7 @@ const createTestData = async () => {
         ...gameConfig,
         maxBetPerChoices: { big: gameConfig.maxbet, small: gameConfig.minbet },
     });
+
     await createDummyUsers(currency);
     await createRounds();
     await createUserBetData();

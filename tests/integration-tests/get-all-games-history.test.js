@@ -1,6 +1,6 @@
 import { GameClientDriver, normalUser } from "sc-game-service-integration-utils";
-import { socketOptions } from "./stubs/test-data";
 import { initUserSession } from "./helpers";
+import { socketOptions } from "./stubs/test-data";
 
 describe("getAllGamesHistoryTests", () => {
     let normalUserClientDriver;
