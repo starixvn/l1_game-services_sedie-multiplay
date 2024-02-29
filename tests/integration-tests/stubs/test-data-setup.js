@@ -2,18 +2,18 @@ import mongoose from "mongoose";
 import { users } from "sc-base-database";
 import { middlewares } from "sc-common";
 import {
+    createCurrencyGroupGames,
     createDummyCurrency,
     createDummyUsers,
     createExchangeRate,
     createGameConfig,
     createPartnerConfig,
-    createCurrencyGroupGames,
     normalUser,
 } from "sc-game-service-integration-utils";
 
 import configs from "../../../src/app-configs.IGT";
 import { getBetModel, getRoundModel } from "../../../src/models";
-import { game, gameConfig, currencyData, rounds, userBetData } from "./test-data";
+import { currencyData, game, gameConfig, rounds, userBetData } from "./test-data";
 
 const connectDatabase = async () => {
     await middlewares.database.configureDatabase(mongoose, configs.database);
@@ -35,7 +35,7 @@ const createViews = async () => {
             {
                 $project: {
                     _id: 0,
-                    playerId: "$local.memberId",
+                    playerId: { $toString: "$local.memberId" },
                 },
             },
             {
