@@ -46,7 +46,7 @@ describe("Bot", () => {
         it("should call super.reset", async () => {
             // arrange
             const bot = new Bot(definition, gameData, publisher, userInfosRepository);
-            spyOn(BaseBot.prototype, "reset");
+            jest.spyOn(BaseBot.prototype, "reset");
 
             // act
             await bot.reset();
@@ -60,7 +60,7 @@ describe("Bot", () => {
         it("should call super.run", async () => {
             // arrange
             const bot = new Bot(definition, gameData, publisher, userInfosRepository);
-            spyOn(BaseBot.prototype, "run");
+            jest.spyOn(BaseBot.prototype, "run");
 
             // act
             await bot.run();
@@ -74,7 +74,7 @@ describe("Bot", () => {
         it("should call super.resetAllBotData", () => {
             // arrange
             const bot = new Bot(definition, gameData, publisher, userInfosRepository);
-            spyOn(BaseBot.prototype, "resetAllBotData");
+            jest.spyOn(BaseBot.prototype, "resetAllBotData");
 
             // act
             bot.resetAllBotData();
@@ -232,7 +232,7 @@ describe("Bot", () => {
                 bot.totalTickets = 1;
                 const totalBetAmount = 1000;
                 const expected = (totalBetAmount * bot.betChoiceRatio.SubOpts) / 100;
-                spyOn(bot, "getAllBetAmount").and.returnValue(totalBetAmount);
+                jest.spyOn(bot, "getAllBetAmount").mockReturnValueOnce(totalBetAmount);
                 const betChoice = chance.pickone(bot.subOpts);
 
                 // act
@@ -251,7 +251,7 @@ describe("Bot", () => {
                 bot.totalTickets = 1;
                 const totalBetAmount = 1000;
                 const expected = gameData.gameConfigs.minbet * 10;
-                spyOn(bot, "getAllBetAmount").and.returnValue(totalBetAmount);
+                jest.spyOn(bot, "getAllBetAmount").mockReturnValueOnce(totalBetAmount);
                 const betChoice = chance.pickone(bot.rareOpts);
 
                 // act
