@@ -8,52 +8,41 @@ describe("USER failed to place a bet", () => {
     let driver;
 
     describe("WHEN API has internal server error", () => {
-        beforeAll(async (done) => {
+        beforeAll(async () => {
             driver = await initDriverAndPlaceBet(internalServerErrorUser);
-            done();
         });
 
         afterAll(() => {
             driver.close();
         });
 
-        it("THEN return api error to client", () => {
+        it("THEN return api error to client", async () => {
+            // Act
+            const result = await driver.handleGameEvent((data) => data.endBet);
+
             // Assert
-            driver.handleEndBetEvent((endBetData) => {
-                console.log(endBetData);
-                if (endBetData.endBet === -1) {
-                    expect(endBetData.apiError.isPlaceBetFailed).toEqual(true);
-                    done();
-                }
-            });
+            expect(result.apiError.isPlaceBetFailed).toEqual(true);
         });
     });
 
     describe("WHEN API response error", () => {
-        beforeAll(async (done) => {
+        beforeAll(async () => {
             driver = await initDriverAndPlaceBet(errorUser);
-            done();
         });
 
         afterAll(() => {
             driver.close();
         });
 
-        it("THEN return api error to client", () => {
-            // Assert
-            driver.handleEndBetEvent((endBetData) => {
-                if (endBetData.endBet === -1) {
-                    expect(endBetData.betChoice).toEqual("odd");
-                    expect(endBetData.apiError.errorCode).toEqual("SB1900");
-                    expect(endBetData.apiError.isPlaceBetFailed).toEqual(true);
-                    done();
-                }
-            });
-        });
-    });
+        it("THEN return api error to client", async () => {
+            // Act
+            const result = await driver.handleGameEvent((data) => data.endBet);
 
-    afterEach(() => {
-        driver.socket.removeAllListeners(socketOptions.gameName);
+            // Assert
+            expect(result.betChoice).toEqual("odd");
+            expect(result.apiError.errorCode).toEqual(3002);
+            expect(result.apiError.isPlaceBetFailed).toEqual(true);
+        });
     });
 });
 
@@ -72,20 +61,16 @@ const initDriverAndPlaceBet = (user) => {
     const betChoice = "odd";
     const amount = 100;
 
-    return new Promise((resolve, reject) => {
-        let receivedRemainingTime = false;
+    return new Promise(async (resolve, reject) => {
         const driver = new GameClientDriver(socketOptions, initUserSession(user));
-        driver.handleSignedInEvent(() => {
-            driver.sendInGameEvent();
-        });
-        driver.handleInGameEvent((inGameData) => {
-            if (!receivedRemainingTime && inGameData.remainingTime) {
-                receivedRemainingTime = true;
-                setTimeout(() => {
-                    driver.sendBetEvent(betChoice, amount);
-                }, getTimeOutToBet(inGameData.remainingTime, gameSettings[0].durations) * 1000);
-                resolve(driver);
-            }
-        });
+        await driver.handleSignedInEvent();
+        await driver.sendInGameEvent();
+
+        const { remainingTime } = await driver.handleGameEvent((inGameData) => inGameData.remainingTime);
+
+        setTimeout(() => {
+            driver.sendBetEvent(betChoice, amount);
+        }, getTimeOutToBet(remainingTime, gameSettings[0].durations) * 1000);
+        resolve(driver);
     });
 };

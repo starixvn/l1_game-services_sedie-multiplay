@@ -6,108 +6,66 @@ describe("User successfully place a bet", () => {
     const betChoice = "odd";
     const oppositeBetChoice = "even";
     const amount = 100;
-    let normalUserClientDriver;
+    let driver;
 
-    beforeAll(() => {
-        normalUserClientDriver = new GameClientDriver(socketOptions, initUserSession(normalUser));
+    beforeAll(async () => {
+        driver = new GameClientDriver(socketOptions, initUserSession(normalUser));
+        await driver.handleSignedInEvent();
     });
 
     afterAll(() => {
-        normalUserClientDriver.close();
-    });
-
-    beforeEach(() => {
-        normalUserClientDriver.off(normalUserClientDriver.gameName);
-    });
-
-    describe("GIVEN user join game", () => {
-        it("should receive signed in response", (done) => {
-            // Assert
-
-            normalUserClientDriver.once(eventTypes.signedIn, (message) => {
-                expect(true).toBe(true);
-                done();
-            });
-        });
-
-        it("should receive game configs when ingame", (done) => {
-            // Arrange
-            const expectedOdds = { even: 1.96, odd: 1.96, red3: 3.75, red4: 14.4, white3: 3.75, white4: 14.4 };
-
-            // Act
-            normalUserClientDriver.sendInGameEvent();
-
-            // Assert
-            normalUserClientDriver.handleInGameEvent((inGameData) => {
-                if (inGameData?.gameConfigs) {
-                    expect(inGameData.gameConfigs.odds).toStrictEqual(expectedOdds);
-                    expect(inGameData.roundHistory).toBeArrayOfSize(2);
-
-                    done();
-                }
-            });
-        });
+        driver.close();
     });
 
     describe(`WHEN user place a bet on ${betChoice}`, () => {
-        it("THEN user receive endBet with approriate amount", async (done) => {
+        it("THEN user receive endBet with approriate amount", async () => {
             // Arrange
+            driver.sendInGameEvent();
             await new Promise((r) => setTimeout(r, 13000));
 
             // Act
-            normalUserClientDriver.sendBetEvent(betChoice, amount);
+            driver.sendBetEvent(betChoice, amount);
+            const result = await driver.handleGameEvent((data) => data.endBet);
 
             // Assert
-            normalUserClientDriver.handleEndBetEvent((endBetData) => {
-                if (endBetData?.endBet) {
-                    expect(endBetData.endBet).toStrictEqual(amount);
-                    done();
-                }
-            });
+            expect(result.endBet).toStrictEqual(amount);
+            expect(result.betChoice).toBe(betChoice);
         });
 
-        it(`AND user bet to opposite choice ${oppositeBetChoice}, system should return hedge bet error `, async (done) => {
+        it(`AND user bet to opposite choice ${oppositeBetChoice}, system should return hedge bet error `, async () => {
             // Act
-            normalUserClientDriver.sendBetEvent(oppositeBetChoice, amount);
+            driver.sendBetEvent(oppositeBetChoice, amount);
+            const result = await driver.handleGameEvent((data) => data.endBet);
 
             // Assert
-            normalUserClientDriver.handleEndBetEvent((endBetData) => {
-                if (endBetData?.endBet) {
-                    expect(endBetData.endBet).toEqual(-1);
-                    expect(endBetData.betChoice).toEqual(oppositeBetChoice);
-                    expect(endBetData.notice.errorCode).toEqual("SB1939");
-                    done();
-                }
-            });
+            expect(result.endBet).toEqual(-1);
+            expect(result.betChoice).toEqual(oppositeBetChoice);
+            expect(result.notice.errorCode).toEqual("SB1939");
         });
     });
 
     describe("THEN the round is end", () => {
-        it("user should receive settlement result", async (done) => {
+        it("user should receive settlement result", async () => {
+            // Act
+            driver.sendBetEvent(oppositeBetChoice, amount);
+            const result = await driver.handleGameEvent((data) => data.finish);
+
             // Assert
-            normalUserClientDriver.handleEndGameEvent((endBetData) => {
-                if (endBetData?.finish) {
-                    expect(endBetData.finish.result).not.toBeNull();
-                    done();
-                }
-            });
+            expect(result.finish.result).not.toBeNull();
+            expect(result.finish.settlementResult).not.toBeNull();
         }, 40000);
     });
 
     describe("THEN user able to get bet history", () => {
-        it("should receive bet history", async (done) => {
+        it("should receive bet history", async () => {
             // Act
-            normalUserClientDriver.sendGetHistoryEvent();
+            driver.sendGetHistoryEvent();
+            const result = await driver.handleGameEvent((historyData) => historyData.history);
 
             // Assert
-            normalUserClientDriver.handleGetHistoryEvent((data) => {
-                if (data?.history) {
-                    expect(data.history.total).toBe(3);
-                    expect(data.history.betLogs).toBeArrayOfSize(3);
-                    expect(data.history.betLogs.filter((bet) => bet[betChoice] === amount)).toBeArrayOfSize(1);
-                    done();
-                }
-            });
+            expect(result.history.total).toBe(3);
+            expect(result.history.betLogs).toBeArrayOfSize(3);
+            expect(result.history.betLogs.filter((bet) => bet[betChoice] === amount)).toBeArrayOfSize(1);
         });
     });
 });

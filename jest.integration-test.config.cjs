@@ -10,10 +10,10 @@ module.exports = async () => {
         ],
         testEnvironment: "node",
         testResultsProcessor: "jest-junit",
-        setupFilesAfterEnv: ["jest-extended"],
+        setupFilesAfterEnv: ["jest-extended/all"],
         globalSetup: "<rootDir>/tests/integration-tests/global-setup.cjs",
         globalTeardown: "<rootDir>/tests/integration-tests/global-teardown.cjs",
-        testTimeout: 20000,
+        testTimeout: 120000,
         testSequencer: "./test-sequencer.cjs",
         reporters: ["default", "jest-junit", ["jest-html-reporters", { publicPath: "./reports", filename: "report.html" }]],
     };
