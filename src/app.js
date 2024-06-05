@@ -2,7 +2,7 @@ import appConfigs from "./app-configs";
 import gameSettings from "./game-settings";
 import { startTrace } from "sc-instrument";
 
-startTrace(appConfigs.otel?.enabled, appConfigs.otel?.endpoint, appConfigs.otel?.system, appConfigs.sentry.env, gameSettings.name);
+startTrace(appConfigs.otel?.enabled, appConfigs.otel?.endpoint, appConfigs.otel?.system, appConfigs.sentry.env, "Sedie Multiplay");
 
 import { GameDefinition } from "sc-multiple-games-base";
 import MiniSedieMultiplayApp from "./mini-sedie-multiplay-app";
