@@ -1,9 +1,9 @@
 import awilix from "awilix";
 import { MultipleGamesContainerRegistry } from "sc-multiple-games-base";
 import PlaceBetConsumer from "./consumers/place-bet-consumer";
-import Bot from "./crons/bot";
-import GameCron from "./crons/game-cron";
-import { SedieMultiplayHttpRouter } from "./routers/sedie-multiplay-http-routers";
+import { Bot, GameCron, SedieMultiplayProcessBetQueue } from "./crons";
+import { SedieMultiplayHttpRouter, SedieMultiplaySocketRouter } from "./routers";
+import { BetEventMetric } from "./metrics";
 const { asClass, asValue } = awilix;
 
 const oldGameId = 9;
@@ -40,14 +40,20 @@ export default class ContainerRegistry extends MultipleGamesContainerRegistry {
         super.registerCrons();
 
         this.container.register({
+            betEventMetric: asClass(BetEventMetric).singleton().proxy(),
+        });
+
+        this.container.register({
             bot: asClass(Bot).singleton(),
             gameCron: asClass(GameCron).singleton().proxy(),
+            processBetQueue: asClass(SedieMultiplayProcessBetQueue).singleton().proxy(),
         });
     }
 
     registerOldGameRouters() {
         this.container.register({
             httpRouter: asClass(SedieMultiplayHttpRouter),
+            socketRouter: asClass(SedieMultiplaySocketRouter).proxy(),
         });
     }
 }
