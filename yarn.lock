@@ -7117,10 +7117,10 @@ sc-api-client@1.4.0:
   dependencies:
     axios "^0.19.2"
 
-sc-base-apis@1.18.1, sc-base-apis@1.18.2:
-  version "1.18.2"
-  resolved "https://npm.lumigame.com/sc-base-apis/-/sc-base-apis-1.18.2.tgz#7fce1793048d3a6dddfd38012faaeb8fbebce43d"
-  integrity sha512-W/R9K6rb86S11PjMJMV8B4vh73i6FPHJpQAf5tztMIn1E3tHfhP7O+t4A0TcELCsxwH+hi0yAI0DMV4H1oGzzA==
+sc-base-apis@1.18.1:
+  version "1.18.1"
+  resolved "http://npm.lumigame.com/sc-base-apis/-/sc-base-apis-1.18.1.tgz#3f70c2b1a77e8d57918b7500264c6b13e60a1682"
+  integrity sha512-nMpTe7xdvzmDQ0WsYCGibTE9id7ivfd0IIm66IjzzS5RC8O9j7Tsy5RqxkMKRjhCJjvozXPGEvnfZuRu9tqZ4g==
   dependencies:
     moment "^2.29.4"
     sc-api-client "1.4.0"
@@ -7229,10 +7229,10 @@ sc-instrument@1.1.1:
     opentelemetry-instrumentation-socket.io "0.34.0"
     socket.io "4.6.1"
 
-sc-multiple-games-base@2.0.0-beta.0:
-  version "2.0.0-beta.0"
-  resolved "http://npm.lumigame.com/sc-multiple-games-base/-/sc-multiple-games-base-2.0.0-beta.0.tgz#3e7bd46920ee6f1b703ca31759170cec76854b74"
-  integrity sha512-uh73ved5jrHspU7zXeEetm9gILNrs1NXNH8oROLk5Uy8svKYTI+WK2YnLLMBStnqT3GXxBdg1YzmqZVinX6uyw==
+sc-multiple-games-base@2.0.0:
+  version "2.0.0"
+  resolved "http://npm.lumigame.com/sc-multiple-games-base/-/sc-multiple-games-base-2.0.0.tgz#f786fa94bd45e4177016029738c230cb32a6b205"
+  integrity sha512-gsCAdM4SstGMxOlxNPowgU7HjQHn2mZVsp++Tr3dZbqPRtd8dRsqBJm1yOo/fzhZW30Fr+TT1Dl3cJLjSyqIqg==
   dependencies:
     sc-game-base "4.1.0"
 
