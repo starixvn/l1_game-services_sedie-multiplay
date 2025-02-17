@@ -33,4 +33,13 @@ export default class SedieMultiplayProcessBetQueue extends Core.Crons.ProcessBet
 
         return super.proceedBet(player, payload);
     }
+
+    isCountOnTotalBets(player) {
+        return this.gameData.currencies.some(
+            (currency) =>
+                currency.partnerId === player.session.operatorId &&
+                currency.name === player.session.currencyName &&
+                !(currency.isTest && currency.isUncountOnTotal)
+        );
+    }
 }
