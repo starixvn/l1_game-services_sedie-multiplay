@@ -30,7 +30,7 @@
     "resolutions": {
         "socket.io-prom-metrics": "1.0.3",
         "sc-base-apis": "1.18.2",
-        "mongoose": " 5.13.22"
+        "mongoose": "5.13.23"
     },
     "devDependencies": {
         "@babel/preset-env": "^7.11.5",
