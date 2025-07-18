@@ -28,7 +28,7 @@
         "sc-instrument": "1.1.1"
     },
     "resolutions": {
-        "socket.io-prom-metrics": "1.0.3",
+        "socket.io-prom-metrics": "1.0.14",
         "sc-base-apis": "1.18.2",
         "mongoose": " 5.13.22"
     },
